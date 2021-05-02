@@ -1,0 +1,86 @@
+\documentclass[12pt]{article}
+\usepackage[margin=15mm]{geometry}
+\usepackage[spanish]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{bm}
+
+\title{Mathematics and Computation Glossary}
+\author{Carlos María Rodríguez}
+\date{\today}
+
+\newtheoremstyle{customdef}
+  {5mm}%   Space above
+  {0mm}%   Space below
+  {\slshape}%  Body font
+  {}%          Indent amount (empty = no indent, \parindent = para indent)
+  {\bfseries}% Thm head font
+  {.}%         Punctuation after thm head
+  {0.5em}%     Space after thm head: " " = normal interword space;
+  {}%          Thm head spec (can be left empty, meaning `normal')
+
+\theoremstyle{customdef}
+\newtheorem{defn}{Def.}
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}
+
+\begin{document}
+  \maketitle
+
+  \begin{defn}$\bm{I}$ denotes the set of all binary sequences of all lengths. $\bm{I_n}$ denotes
+  the sequence of all binary sequences in $\bm{I}$, this is, $\bm{I_n} = \{0,1\}^n$.\end{defn}
+
+  \begin{defn}(The class $\bm{\mathcal{P}}$). \\
+    A function $f: \bm{I} \rightarrow \bm{I}$ is in the
+    class $\mathcal{P}$ if there is an algorithm computing $f$ and positive constants, $A$,
+    $c$, such that $\forall n \in \mathbb{N}, \forall x \in I_n$, the algorithm computes
+    $f(x)$ in at most $An^c$ steps.
+  \end{defn}
+
+\begin{defn}(The class $\bm{\mathcal{NP}}$).\\
+  The set $\mathcal{C} \in \bm{I}$ is in the class
+    $\mathcal{NP}$ if there is a function $V_C \in \mathcal{P}$ and a constant $k \in
+    \mathbb{R}$ such that:
+    \begin{itemize}
+      \item If $x \in \mathcal{C}$, then $\exists y \in \mathbb{R}$ with $|y| \leq
+        k|x|^k$ and $V_C(x,y) = 1$.
+      \item If $x \notin \mathcal{P}$, then $\forall y$ we have $V_C(x,y) = 0$.
+    \end{itemize}
+  \end{defn}
+  The function $V_C$ is called the \emph{verification algorithm}, and the sequence $y$
+  for which $V_C(x,y) = 1$ is called the \emph{witness}.
+
+
+\begin{defn}(The class $\bm{co\mathcal{NP}}$).
+
+  A set $\mathcal{C} \in \bm{I}$ is
+    in the class $co\mathcal{NP}$ iff its complement
+    $\bar{\mathcal{C}} = \bm{I} \setminus \mathcal{C}$ is in
+$\mathcal{P}$.\end{defn}
+
+  \begin{defn}(Efficient reductions).
+
+    Let $C,D \subset \bm{I}$ be two classification
+problems. $f: \bm{I} \rightarrow \bm{I}$ is an efficient reduction from $C$ to $D$ if
+$f \in \mathcal{P}$ and $\forall x \in \bm{I}$ we have $x \in C \iff x \in D$.\end{defn}
+We write $C \leq D$ if such a reduction exists.
+
+\begin{defn}(Hardness and completeness).
+
+  A problem $D$ is called $\mathcal{C}$-hard if $\forall C \in \mathcal{C}$,
+we have $C \leq D$. If we further have that $D \in \mathcal{C}$, then $D$ is called
+$\mathcal{C}$-complete.\end{defn}
+
+\begin{defn}(The $SAT$ problem).\\
+  Given a logical expression over Boolean variables (can take values in $\{0, 1\}$
+  with connectives $\wedge, \vee, \neg$), is it satisfiable?
+  This is, is there a boolean assignment of the variables trough which the expression
+  evalutates to $1$? The set of all such expressions is denoted by $SAT$.
+\end{defn}
+
+\begin{thm}$SAT$ is $\mathcal{NP}$-complete.\end{thm}
+
+\end{document}
