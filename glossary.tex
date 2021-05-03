@@ -1,6 +1,6 @@
 \documentclass[12pt]{article}
 \usepackage[margin=15mm]{geometry}
-\usepackage[spanish]{babel}
+\usepackage[english]{babel}
 \usepackage[latin1]{inputenc}
 \usepackage{amsmath}
 \usepackage{amsthm}
@@ -23,12 +23,14 @@
   {}%          Thm head spec (can be left empty, meaning `normal')
 
 \theoremstyle{customdef}
-\newtheorem{defn}{Def.}
+\newtheorem{defn}{Def.}[section]
 \theoremstyle{plain}
-\newtheorem{thm}{Theorem}
+\newtheorem{thm}{Theorem}[section]
 
 \begin{document}
   \maketitle
+
+  \section{Basics}
 
   \begin{defn}$\bm{I}$ denotes the set of all binary sequences of all lengths. $\bm{I_n}$ denotes
   the sequence of all binary sequences in $\bm{I}$, this is, $\bm{I_n} = \{0,1\}^n$.\end{defn}
@@ -83,4 +85,23 @@ $\mathcal{C}$-complete.\end{defn}
 
 \begin{thm}$SAT$ is $\mathcal{NP}$-complete.\end{thm}
 
+\begin{defn}(The $2DIO$ problem).\\
+  Given a Diophantine equations of the form $Ax^2 + By + C = 0; A,B,C \in \mathbb{Z}$,
+  is it solvable with positive integers?
+\end{defn}
+
+\begin{thm}$2DIO$ is $\mathcal{NP}$-complete.\end{thm}
+
+\begin{defn}(The $3COL$ problem).\\
+  Given a planar map, can you color it using only 3 different colors?
+\end{defn}
+
+\begin{thm}$3COL$ is $\mathcal{NP}$-complete.\end{thm}
+
+\begin{defn}(The $subset-sum$ problem).\\
+  Given a sequence $a_1, a_2, ..., a_n \in \mathbb{Z}$ and $b$, is there a subset $J$ such
+  that $\sum_{i \in J} a_i = b$?
+\end{defn}
+
+\begin{thm}$Subset-sum$ is $\mathcal{NP}$-complete.\end{thm}
 \end{document}
