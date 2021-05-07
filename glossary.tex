@@ -26,6 +26,7 @@
 \newtheorem{defn}{Def.}[section]
 \theoremstyle{plain}
 \newtheorem{thm}{Theorem}[section]
+\newtheorem{con}{Conjecture}[section]
 
 \begin{document}
   \maketitle
@@ -104,4 +105,136 @@ $\mathcal{C}$-complete.\end{defn}
 \end{defn}
 
 \begin{thm}$Subset-sum$ is $\mathcal{NP}$-complete.\end{thm}
+
+
+\section{Problems and classes related to $\mathcal{NP}$}
+
+Let us look at a few problem classes which do not fall into $\mathcal{NP}$ but which arise
+naturally.
+
+\begin{defn}(Optimization problems).\\
+  Fix a $\mathcal{NP}$ problem and a cost function over solutions (witnesses). Given an
+  input, find the \emph{best} solution for it (minimizes cost function).
+\end{defn}
+
+\begin{defn}(Quantified problems).\\
+How does a problem from $\mathcal{NP}$ behave when parametrizing some of its variables?
+For example, which Boolean expressions have have valid solutions when considering every
+value possible for some given variables? The complexity class of all such problems
+is called the \emph{Polynomial Hierarchy}, denoted $\mathcal{PH}$.
+\end{defn}
+
+\begin{defn}(Counting problems).\\
+  For a given $\mathcal{NP}$ problem and an input, find the \emph{number} of solutions (witnesses).
+  The class of these problems is denoted by $\#\mathcal{P}$.
+\end{defn}
+
+\begin{defn}(Strategic problems).\\
+Given a (complete information, 2-player) game, find an optimal strategt for a given
+player. The basic class for these problems is denoted by $\mathcal{PSP ACE}$,
+solvable using a polynomial amount of space.\end{defn}
+
+\begin{defn}(Total $\mathcal{NP}$ functions).\\
+These are search problems seeking to find objects that are guaranteed to exist and are
+certified by small witnesses. These kind of problems can be divided into multiple complexity
+classes, lying between $\mathcal{P}$ and $\mathcal{NP}$. As examples:
+\begin{itemize}
+  \item Class $\mathcal{PLS}$, for polynomial local search.
+  \item Class $\mathcal{PPAD}$, in which a problem consists in finding a fixed point for a
+    given function.
+  \item Computing a Nash equilibrium for a given 2-player game.
+\end{itemize}
+\end{defn}
+
+\begin{thm}If $\mathcal{P} \neq \mathcal{NP}$, there are infinitely many levels of
+difficuly in $\mathcal{NP}$.\end{thm}
+
+Some examples of problems which we haven't been proven to be in $\mathcal{P}$ yet
+aren't $\mathcal{NP}$-complete are:
+\begin{itemize}
+  \item Integer factoring.
+  \item Knot triviality. Given a diagram describing a knot, is it the trivial knot?
+  \item Graph isomorphism. Given two graphs, are they isomorphic
+\end{itemize}
+
+\begin{defn}(Constraint satisfaction problems, CSPs).\\
+  Fixing arity $k$ (the locality parameter), alphabet $\Sigma$ (possible values for the
+  variables), and a relation $R \subseteq \Sigma^k$ (defining the set of tuple values satifying
+  the constrint).
+  We denote by $CSP(k, \Sigma, R)$ the following computational problem. Given a collection
+  of $k$-tuples from a set of $n$ variables, is there an assignment of the variables from
+  $\Sigma^n$ that satisfies all constraints in $R$?
+\end{defn}
+
+\begin{thm}(Dichotomy theorem). Every CSP is either in $\mathcal{P}$ or is
+$\mathcal{NP}$-complete.\end{thm}
+
+\begin{defn}(Unique Games).\\
+Fix $\epsilon > 0$ and integer $m$. The problem $UG(\epsilon, m)$ is the following.
+The input is a system of linear equations in $n$ variables $x_1, x_2, x_3, ..., x_n$ over
+$\mathbb{Z}_m$, with \emph{two} variables per equation. An algorithm must answer "yes" is
+there is an assignment satisfying a fractoin $1 - \epsilon$ of the equations, and answer
+"no" if no assignment satisfies more than a fraction $\epsilon$ of them, any answer is
+acceptable if neither of these is the case.
+\end{defn}
+This is a specific case of CSP.
+
+\begin{con}(UGC). For every $\epsilon > 0$ there exists $m$ such that $UG(\epsilon, m)$ is
+  $\mathcal{NP}$-hard.
+\end{con}
+
+\begin{thm}Assume UGC. Then for every CSP, there is a constant $\delta$ such that
+approximating it to within approximation ratio $\delta$ is in $\mathcal{P}$, but
+approximating it to any better ratio $\delta + \epsilon$ is in $\mathcal{NP}$-hard for
+every $\epsilon > 0$.
+\end{thm}
+\bigskip
+
+In some cases we may want to study how a given problem behaves depending on how its inputs
+are distributed, not only the worst-case scenarios. For example, we may be interested in
+how difficult a given problem is \emph{on average}. One can generalize this notion
+considering \emph{distributional} problems, given by $(C, D)$; $C$ is a classification
+problem, and $D$ is a distribution on $\bm{I}$.
+\begin{defn}(dist$\mathcal{P}$).\\
+  We loosely define the distributional analog of $\mathcal{P}$, denoted by
+  dist$\mathcal{P}$ as the set of problems having fast algorithms "on average".
+\end{defn}
+
+\begin{defn}(One-way function).\\
+  A function $f: \bm{I} \rightarrow \bm{I}$ is called one-way if $f \in \mathcal{P}$, but
+  for every efficient algorithm $A$, its probability of computing any pre-image of $f$
+  applied to a random input is small. Namely, for every (large enough) $n$,
+  $$Pr[f(A(f(x))) = f(x)] \leq \delta, \delta < 1$$
+  where the probability is taken over the uniform distribution of n-bit sequences $x$.
+\end{defn}
+\bigskip
+
+As an example, we may consider \emph{modular exponentiation}. Let $p$ be a prime, $g$ a
+generator of $\mathbb{Z}_p^*$, and $ME_{p,g} : \{1,2,...,p-1\}\rightarrow\{1,2,...,p-1\}$,
+given by $ME_{p,g}(x) = g^{x-1}$ mod $p$. Computing $ME_{p,g}$ is easy on every input, while it is
+believed that computing the inverse of $ME_{p,g}$ for a well-selected $p$ is exponentially
+hard. We can combine these permutations into a single permutation ME:$\bm{I} \rightarrow
+\bm{I}$ and conjecture
+
+\begin{con}The modular exponentiation function ME is a one-way function.\end{con}
+\bigskip
+
+A key observation is that the existence of any one-way function would imply that
+dist$\mathcal{P} \neq $ dist$\mathcal{NP}$. In fact, it would prove that $\mathcal{NP} 
+\cap co\mathcal{NP} \neq \mathcal{P}$.\\
+
+Another important one-way function candidate is modular powering. Let $p, q$ be primes,
+$N = pq$, and $c$ invertible modulo $\phi(N) = (p-1)(q-1)$. Define MP\textsubscript{N,c}
+$: \mathbb{Z}_N \rightarrow \mathbb{Z}_N$ by MP\textsubscript{N,c}$(x) = x^c$ mod $N$. This
+too is a permutation. Computing MP\textsubscript{N,c} is easy, but the inverse isn't. Once
+again, we can construct a function MP$: \bm{I} \rightarrow \bm{I}$.
+
+\begin{con}The modular powering function MP is a one-way function.\end{con}
+The difference between ME and MP is that MP has a \emph{trap-door}: it becomes easy to
+invert if one has the factors of $N$. This allows anyone who has the secret key (the prime
+factors $p, q$) to restore the original message from a transformed one.
+
+
+\section{Lower bounds, Boolean circuits, and attacks on $\mathcal{P}$ vs. $\mathcal{NP}$}
+
 \end{document}
