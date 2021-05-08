@@ -24,9 +24,10 @@
 
 \theoremstyle{customdef}
 \newtheorem{defn}{Def.}[section]
+\newtheorem{con}{Conjecture}[section]
+\newtheorem{open}{Open Problem}[section]
 \theoremstyle{plain}
 \newtheorem{thm}{Theorem}[section]
-\newtheorem{con}{Conjecture}[section]
 
 \begin{document}
   \maketitle
@@ -236,5 +237,108 @@ factors $p, q$) to restore the original message from a transformed one.
 
 
 \section{Lower bounds, Boolean circuits, and attacks on $\mathcal{P}$ vs. $\mathcal{NP}$}
+
+\begin{defn}(Boolean circuit).\\
+A Boolean circuit may be viewed as the hardware analog of an algorithm. Computation of a
+circuit on the Boolean inputs proceeds by applying a sequence of Boolean operations
+(gates) to produce an output. The operations are AND, OR, and NOT.
+\end{defn}
+
+\begin{defn}(Circuit size).\\
+For a finite function $g$, denote by $S(g))$ the size of the smallest Boolean circuit
+computing $g$. More generally, for $f: \bm{I} \rightarrow \bm{I}$ with $f_n$ the
+restriction of $f$ to inputs of size $n$, we define $S(f)$ to be the mapping from $n$ to
+$S(f_n)$.
+\end{defn}
+
+\begin{defn}(The class $\mathcal{P}$/poly).\\
+$\mathcal{P}$/poly is the set of all functions computable by a family of polynomial-size
+circuits.
+\end{defn}
+
+\begin{thm}$\mathcal{P} \subseteq \mathcal{P}$/poly.\end{thm}
+
+This is because a given $f_n$ function, one can simulate it's Turing machine, which runs
+in polynomial time $T$, with a circuit $c_n$ whose size is $O((T(n))^2)$.
+
+\begin{con} $\mathcal{NP} \nsubseteq \mathcal{P}$/poly. \end{con}
+
+\begin{thm}For almost every function $f: \bm{I}_n \rightarrow \{0,1\}, S(f) \geq 2^{n/3}.$
+\end{thm}
+This is, most Boolean functions require exponential-size circuits. This can be seen by
+considering that for a number $n$ of input bits, there are exactly $2^2^n$ functions,
+while the number of different circuits of a given size $s$ is about $2^s^2$. Each circuit
+computes a different function, so we must have $s > 2^{n/3}$ for most functions.\\
+Sadly, this is a constructive proof, and we do not have any explicit function $f$ with this
+property.
+
+\begin{con} $S(SAT) = 2^{\Omega(n)}$.\end{con}
+
+This conjecture is muth stronger than $\mathcal{P}$ vs. $\mathcal{NP}$, as it would imply
+that SAT isn't in $\mathcal{P}$. But the fact is that \emph{not a single nontrivial
+lower bound is known for a explicit function}. Formally,
+
+\begin{open}Find an explicit function $f: \bm{I}_n \rightarrow \bm{I}_n$ for which $S(f)
+\neq O(n)$.\end{open}
+This means we are unable to provide any nontrivial lower bound, and we must turn to
+restricted problems to find relevant results.
+\bigskip
+
+We first focus on Boolean formulas, with the set of de Morgan connectors.
+\begin{defn}(Formula size).\\
+  For a finite function $g: \bm{I}_n \rightarrow \{0,1\}$, denote by $L(g)$ the size of
+  the smallest Boolean formula computing $g$. For $f: \bm{I} \rightarrow \{0,1\}$, with
+  $f_n$ the restriction of $f$ to inputs of size $n$, we define $L(f)$ to be the mapping
+  of $n$ to $L(f_n)$.
+\end{defn}
+This notion is univeral, as every Boolean function can be computed by a Boolean
+formula. But, formulas are a worse computational model that circuits, and we can hope to
+prove better lower bounds. As an example, $S$(PAR) $= O(n)$, while $L$(PAR) $= O(n²)$.
+
+\begin{thm}There is a Boolean function f with $S(f) = O(n)$ and $L(f) =
+\Omega(n^{3-o(1)})$.\end{thm}
+
+The actual gap is believed to be exponential:
+
+\begin{con}There is a Boolean function $f$ with $S(f) = O(n)$ and $L(f) \neq
+n^{O(1)}$.\end{con}
+
+\bigskip
+
+\begin{defn}(CLIQUE problem).\\
+  Given a graph on $n$ vertices, is there a complete subgraph of size $\sqrt{n}$?
+\end{defn}
+\begin{thm}CLIQUE is $\mathcal{NP}$-complete.\end{thm}
+
+\begin{defn}(Perfect Matching problem).\\
+  Given a graph, can you pair up the vertices so that every pair is connected by an edge?
+\end{defn}
+\begin{thm}Perfect matching is in $\mathcal{P}$\end{thm}
+
+
+\begin{defn}(Monotone function).\\
+A Boolean function is monotone if "increasing" the input (switching bits from 0 to 1) does
+not decrease the function value.\end{defn}
+
+CLIQUE is one of such functions: adding edges cannot remove a complete subgraph. A similar
+reasoning can prove the same for Perfect matching.
+
+\begin{defn}(Monotone circuit).\\
+  A monotone circuit is one constructed only with the $\{\wedge, \vee\}$ gates.
+\end{defn}
+It can be shown that any monotone function can be computed by a monotone circuit.
+
+\begin{defn}(Monotone formula).\\
+  A monotone formula is one constructed only with the $\{\wedge, \vee\}$ operators.
+\end{defn}
+
+\begin{thm}CLIQUE requires exponential-size monotone circuits.\end{thm}
+
+\begin{thm}Perfect matching requires super-polynomial-size monotone circuits.\end{thm}
+
+\begin{thm}Perfect matching requires exponential-size monotone formulas.\end{thm}
+
+
+
 
 \end{document}
